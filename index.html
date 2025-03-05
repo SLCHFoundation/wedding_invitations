@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Putri dan Gilang - Kolom Pesan</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #80deea);
+            color: #01579b;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #00bcd4;
+            animation: slideDown 1s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #00796b;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #004d40;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .comments-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #00796b;
+            text-align: center;
+        }
+
+        #comments-container {
+            margin-bottom: 20px;
+        }
+
+        .comment {
+            background: #e0f7fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .comment strong {
+            color: #00796b;
+        }
+
+        .comment p {
+            margin: 5px 0 0;
+            color: #004d40;
+        }
+
+        .comment small {
+            display: block;
+            margin-top: 5px;
+            color: #00796b;
+            font-size: 0.8em;
+        }
+
+        /* Form Styles */
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #comment-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #00796b;
+        }
+
+        #comment-form input,
+        #comment-form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #00bcd4;
+            border-radius: 4px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        #comment-form button {
+            padding: 10px;
+            background: #00bcd4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+
+        #comment-form button:hover {
+            background: #0097a7;
+        }
+
+        /* Emoji Picker */
+        .emoji-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .emoji-picker span {
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        .emoji-picker span:hover {
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Silahkan kirimkan pesan Anda untuk kedua mempelai</h1>
+        <p>Kami berharap Anda dapat berbagi kebahagiaan dengan kami! 💍🎉</p>
+    </header>
+
+    <section class="comments-section">
+        <h2>Kolom Pesan</h2>
+        <div id="comments-container">
+            <!-- Pesan akan ditampilkan di sini -->
+        </div>
+
+        <form id="comment-form">
+            <label for="username">Nama Anda:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="comment">Pesan Anda:</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+
+            <div class="emoji-picker">
+                <span onclick="addEmoji('😊')">😊</span>
+                <span onclick="addEmoji('❤️')">❤️</span>
+                <span onclick="addEmoji('🎉')">🎉</span>
+                <span onclick="addEmoji('💍')">💍</span>
+                <span onclick="addEmoji('🌸')">🌸</span>
+                <span onclick="addEmoji('🥂')">🥂</span>
+            </div>
+
+            <button type="submit">Kirim Pesan</button>
+        </form>
+    </section>
+
+    <script>
+        // Fungsi untuk menambahkan emoji ke textarea
+        function addEmoji(emoji) {
+            const commentInput = document.getElementById('comment');
+            commentInput.value += emoji;
+        }
+
+        // Fungsi untuk menambahkan Pesan
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Ambil nilai dari form
+            const username = document.getElementById('username').value.trim();
+            const comment = document.getElementById('comment').value.trim();
+
+            // Validasi input
+            if (!username || !comment) {
+                alert('Nama dan pesan tidak boleh kosong!');
+                return;
+            }
+
+            // Buat elemen baru untuk menampilkan Pesan
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            const now = new Date();
+            const timestamp = now.toLocaleString();
+            commentElement.innerHTML = `
+                <strong>${username}</strong>
+                <p>${comment}</p>
+                <small>${timestamp}</small>
+            `;
+
+            // Tambahkan Pesan ke dalam container
+            document.getElementById('comments-container').appendChild(commentElement);
+
+            // Simpan pesan ke localStorage
+            saveComment(username, comment, timestamp);
+
+            // Reset form
+            document.getElementById('comment-form').reset();
+        });
+
+        // Fungsi untuk menyimpan pesan ke localStorage
+        function saveComment(username, comment, timestamp) {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push({ username, comment, timestamp });
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // Fungsi untuk memuat pesan dari localStorage
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            const commentsContainer = document.getElementById('comments-container');
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.classList.add('comment');
+                commentElement.innerHTML = `
+                    <strong>${comment.username}</strong>
+                    <p>${comment.comment}</p>
+                    <small>${comment.timestamp}</small>
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        }
+
+        // Memuat pesan saat halaman dimuat
+        window.onload = loadComments;
+    </script>
+</body>
+</html>
